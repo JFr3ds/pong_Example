@@ -152,7 +152,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 304183723aa8c6849bd323504f9a033a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _msj: Hello world
+  m_mainCamera: {fileID: 963194227}
+  m_disFromCamera: 20
+  m_sphereRadius: 0.5
+  m_ball: {fileID: 0}
+  m_speedBall: 0
 --- !u!4 &222293481
 Transform:
   m_ObjectHideFlags: 0
@@ -312,7 +316,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
+  orthographic: 1
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:
