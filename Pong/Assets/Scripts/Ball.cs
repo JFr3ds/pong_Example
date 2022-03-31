@@ -4,42 +4,30 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-    [SerializeField] private float m_speedBall;
+    public float speedRef;
+    public float m_speedBall { get; private set; }
     [SerializeField] private Vector2 m_ballDirection;
     [SerializeField] private float expectedTime;
     
     float timeElapsed;
 
-
     private void Start()
     {
-        /*
-        float distanceX = transform.position.x - gameManager.PointInWorld(gameManager.GetScreenSize()).x;
-        Debug.Log(distanceX);
-        expectedTime = distanceX / m_speedBall;
-        expectedTime = Mathf.Abs(expectedTime);
-        */
+        m_speedBall = speedRef;
     }
 
     private void Update()
     {
-        /*
-        timeElapsed += Time.deltaTime;
-        if (timeElapsed >= expectedTime)
-        {
-            return;
-        }
-        */
-
-
         if (transform.position.x > GameManager.Instance.PointInWorld(GameManager.Instance.GetScreenSize()).x && m_ballDirection.x > 0)
         {
-            m_ballDirection.x *= -1;
+            GameManager.Instance.UpdateScore(1);
+            gameObject.SetActive(false);
         }
 
         if (transform.position.x < GameManager.Instance.PointInWorld(Vector3.zero).x && m_ballDirection.x < 0)
         {
-            m_ballDirection.x *= -1;
+            GameManager.Instance.UpdateScore(2);
+            gameObject.SetActive(false);
         }
 
         if (transform.position.y > GameManager.Instance.PointInWorld(GameManager.Instance.GetScreenSize()).y && m_ballDirection.y > 0)

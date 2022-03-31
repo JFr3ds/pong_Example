@@ -6,8 +6,12 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     [SerializeField] private Camera m_mainCamera;
-    [SerializeField] private float m_disFromCamera;
+    public float m_disFromCamera;
     [SerializeField] private float m_sphereRadius;
+    public float offsetPlayerToMargen;
+
+    private int m_scorePlayerOne;
+    private int m_scorePlayerTwo;
 
     private void Awake()
     {
@@ -21,6 +25,18 @@ public class GameManager : MonoBehaviour
         }
         DontDestroyOnLoad(this);
 
+    }
+
+    public void UpdateScore(int indexPlayer)
+    {
+        if (indexPlayer == 1)
+        {
+            m_scorePlayerOne++;
+        }
+        else if (indexPlayer == 2)
+        {
+            m_scorePlayerTwo++;
+        }
     }
 
     public Vector3 GetScreenSize()
