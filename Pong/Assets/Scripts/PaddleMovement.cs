@@ -38,12 +38,11 @@ public class PaddleMovement : MonoBehaviour
     {
         if (isIzq)
         {
-            transform.position = new Vector3(GameManager.Instance.PointInWorld(GameManager.Instance.DesirePositions()[0]).x + GameManager.Instance.offsetPlayerToMargen, 0, GameManager.Instance.m_disFromCamera);
+            transform.position = new Vector3(GameManager.Instance.GetValue(ValueToReturn.MinX) + GameManager.Instance.offsetPlayerToMargen, 0, GameManager.Instance.m_disFromCamera);
         }
         else 
         { 
-            transform.position = new Vector3(GameManager.Instance.PointInWorld(GameManager.Instance.DesirePositions()[3]).x - GameManager.Instance.offsetPlayerToMargen, 0, GameManager.Instance.m_disFromCamera);
-        
+            transform.position = new Vector3(GameManager.Instance.GetValue(ValueToReturn.MaxX) - GameManager.Instance.offsetPlayerToMargen, 0, GameManager.Instance.m_disFromCamera);
         }
     }
 }

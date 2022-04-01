@@ -9,33 +9,32 @@ public class Ball : MonoBehaviour
     [SerializeField] private Vector2 m_ballDirection;
     [SerializeField] private float expectedTime;
     
-    float timeElapsed;
 
-    private void Start()
+     public void OnInitializeBall()
     {
         m_speedBall = speedRef;
     }
 
     private void Update()
     {
-        if (transform.position.x > GameManager.Instance.PointInWorld(GameManager.Instance.GetScreenSize()).x && m_ballDirection.x > 0)
+        if (transform.position.x > GameManager.Instance.GetValue(ValueToReturn.MaxX) && m_ballDirection.x > 0)
         {
             GameManager.Instance.UpdateScore(1);
             gameObject.SetActive(false);
         }
 
-        if (transform.position.x < GameManager.Instance.PointInWorld(Vector3.zero).x && m_ballDirection.x < 0)
+        if (transform.position.x < GameManager.Instance.GetValue(ValueToReturn.MinX) && m_ballDirection.x < 0)
         {
             GameManager.Instance.UpdateScore(2);
             gameObject.SetActive(false);
         }
 
-        if (transform.position.y > GameManager.Instance.PointInWorld(GameManager.Instance.GetScreenSize()).y && m_ballDirection.y > 0)
+        if (transform.position.y > GameManager.Instance.GetValue(ValueToReturn.MaxY) && m_ballDirection.y > 0)
         {
             m_ballDirection.y *= -1;
         }
 
-        if (transform.position.y <  GameManager.Instance.PointInWorld(Vector3.zero).y && m_ballDirection.y < 0)
+        if (transform.position.y < GameManager.Instance.GetValue(ValueToReturn.MinY) && m_ballDirection.y < 0)
         {
             m_ballDirection.y *= -1;
         }

@@ -12,6 +12,10 @@ public class GameManager : MonoBehaviour
 
     private int m_scorePlayerOne;
     private int m_scorePlayerTwo;
+    [SerializeField] UIController m_uiController;
+
+    [SerializeField] Ball m_ball;
+    [SerializeField] Vector3 m_ballStartPosition;
 
     private void Awake()
     {
@@ -24,7 +28,12 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
         DontDestroyOnLoad(this);
+    }
 
+    public void StartRound()
+    {
+        m_ball.transform.position = m_ballStartPosition;
+        m_ball.OnInitializeBall();
     }
 
     public void UpdateScore(int indexPlayer)
@@ -37,6 +46,7 @@ public class GameManager : MonoBehaviour
         {
             m_scorePlayerTwo++;
         }
+        m_uiController.UpdateScoreUi(m_scorePlayerOne, m_scorePlayerTwo);
     }
 
     public Vector3 GetScreenSize()
@@ -49,9 +59,7 @@ public class GameManager : MonoBehaviour
     {
         Vector3[] desirePositions = {
             new Vector3(0,0,m_disFromCamera),
-            new Vector3(0,GetScreenSize().y, m_disFromCamera),
             GetScreenSize(),
-            new Vector3(GetScreenSize().x, 0, m_disFromCamera)
         };
         return desirePositions;
     }
@@ -60,6 +68,27 @@ public class GameManager : MonoBehaviour
     {
         Vector3 vectorOut = m_mainCamera.ScreenToWorldPoint(vectorIn);
         return vectorOut;
+    }
+
+    public float GetValue(ValueToReturn val)
+    {
+        float myVal = 0;
+        switch (val)
+        {
+            case ValueToReturn.MinX:
+                myVal = PointInWorld(DesirePositions()[0]).x;
+                break;
+            case ValueToReturn.MaxX:
+                myVal = PointInWorld(DesirePositions()[1]).x;
+                break;
+            case ValueToReturn.MinY:
+                myVal = PointInWorld(DesirePositions()[0]).y;
+                break;
+            case ValueToReturn.MaxY:
+                myVal = PointInWorld(DesirePositions()[1]).y;
+                break;
+        }
+        return myVal;
     }
 
     /*
@@ -81,4 +110,13 @@ public class GameManager : MonoBehaviour
         }
     }
     */
+
+}
+
+public enum ValueToReturn
+{ 
+    MinX,
+    MaxX,
+    MinY,
+    MaxY
 }
